@@ -13,10 +13,8 @@ public class MyCommandLineRunner implements CommandLineRunner {
 	IEmpDao empDao;
 
 	@Override
-	public void run(String... args) throws Exception {		
-		System.out.println(empDao.findEmployeeById(1));
-		System.out.println(empDao.findEmployeeByDeptNo(20));
-		System.out.println(empDao.updateEmployeesSalaryByDeptNo(1000.0, 20));
+	public void run(String... args) throws Exception {
+		empDao.fetchEmployees().forEach(System.out::println);		
 	}
 
 }
