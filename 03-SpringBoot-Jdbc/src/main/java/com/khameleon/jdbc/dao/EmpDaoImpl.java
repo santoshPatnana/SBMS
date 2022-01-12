@@ -15,17 +15,17 @@ public class EmpDaoImpl implements IEmpDao {
 	
 	@Override
 	public Map findEmployeeById(Integer empNo) {		
-		return jdbcTemplate.queryForMap("select * from employees where employee_id = ?",empNo);
+		return jdbcTemplate.queryForMap("select * from emp where empno = ?",empNo);
 	}
 
 	@Override
 	public List findEmployeeByDeptNo(Integer deptNo) {		
-		return jdbcTemplate.queryForList("select * from employees where department_id = ?", deptNo);
+		return jdbcTemplate.queryForList("select * from emp where deptno = ?", deptNo);
 	}
 
 	@Override
 	public int updateEmployeesSalaryByDeptNo(Double salary, Integer deptNo) {		
-		return jdbcTemplate.update("update employees set salary = ? where department_id = ?", salary, deptNo);
+		return jdbcTemplate.update("update emp set sal = ? where deptno = ?", salary, deptNo);
 	}
 
 }
