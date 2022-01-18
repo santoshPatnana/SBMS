@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -16,6 +18,10 @@ import com.khameleon.jpa.enumer.AccountStatus;
 
 @Entity
 @Table(name = "Accounts")
+@NamedQuery(name="AccountEntity.fetchAccountsBasedOnUpdateTime",
+			query="select ae from AccountEntity ae where ae.updateTime = ?1")
+@NamedNativeQuery(name="AccountEntity.fetchAccountsBasedStatus",
+			query="select * from accounts where account_status = ?1", resultClass=AccountEntity.class)
 public class AccountEntity {
 	@Id
 	private long accountNumber;

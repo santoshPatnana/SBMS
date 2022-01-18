@@ -1,5 +1,6 @@
 package com.khameleon.jpa;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,11 +29,11 @@ public class MyAppRunner implements ApplicationRunner {
 	public void run(ApplicationArguments args) throws Exception {
 		/*
 		AccountEntity ac = new AccountEntity();
-		ac.setAccountNumber(23456783L);
-		ac.setAccountHolderName("Durga Prasad");	
-		ac.setBalance(75000);
-		ac.setAccountStatus(AccountStatus.LOCKED);
-		ac.setIfsc("SBIN007893");
+		ac.setAccountNumber(23456784L);
+		ac.setAccountHolderName("Karan");	
+		ac.setBalance(15000);
+		ac.setAccountStatus(AccountStatus.UNLOCKED);
+		ac.setIfsc("SBIN007895");
 		acRepo.save(ac);	
 		
 		acRepo.findAll().forEach(System.out::println);
@@ -82,6 +83,7 @@ public class MyAppRunner implements ApplicationRunner {
 		
 		System.out.println("Page elements count::"+accounts.getNumberOfElements());
 		*/
+		/*
 		System.out.println("**********************Balance = 5000.0*********************************");
 		List<AccountEntity> listAccounts = acRepo.findByBalance(5000.0);
 		listAccounts.forEach(System.out::println);
@@ -94,6 +96,27 @@ public class MyAppRunner implements ApplicationRunner {
 		System.out.println("***********************Account status***************************************");
 		List<AccountEntity> listAccounts3 = acRepo.findByAccountStatus(AccountStatus.LOCKED);
 		listAccounts3.forEach(System.out::println);
+		*/
+		System.out.println("***********************fetchAccountNumberAndBalances***************************************");
+		List<Object[]> listAccounts3 = acRepo.fetchAccountNumberAndBalances(10000);
+		listAccounts3.forEach((val) -> System.out.println(val[0]+"::"+val[1]));
+		
+		System.out.println("***********************fetchAccountNumberAndBalances1***************************************");
+		List<Object[]> listAccounts4 = acRepo.fetchAccountNumberAndBalances1(15000);
+		listAccounts4.forEach((val) -> System.out.println(val[0]+"::"+val[1]));
+		
+		System.out.println("***********************fetchAccountsBasedOnIfsc***************************************");
+		List<AccountEntity> listAccounts5 = acRepo.fetchAccountsBasedOnIfsc("SBIN007893");
+		listAccounts5.forEach(System.out::println);
+		
+		System.out.println("***********************fetchAccountsBasedOnUpdateTime***************************************");
+		LocalDateTime updateTime = LocalDateTime.of(2022,1,14,19,11,28,682285000);//2022,01,14,07,11,28,682285000
+		List<AccountEntity> listAccounts6 = acRepo.fetchAccountsBasedOnUpdateTime(updateTime);
+		listAccounts6.forEach(System.out::println);
+				
+		System.out.println("***********************fetchAccountsBasedStatus***************************************");		
+		List<AccountEntity> listAccounts7 = acRepo.fetchAccountsBasedStatus(AccountStatus.LOCKED);
+		listAccounts7.forEach(System.out::println);
 	}
 
 }
